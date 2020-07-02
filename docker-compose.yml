@@ -1,0 +1,23 @@
+version: '2'
+
+services:
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+
+    image: "compose-test:nginx"
+
+    ports:
+      - "8080"
+
+  command:
+    build:
+      context: .
+      dockerfile: command/Dockerfile
+
+    image: "compose-test:command"
+
+    command: >
+      sh -c "sleep 3 &&
+      wget nginx:8080 -O -"
